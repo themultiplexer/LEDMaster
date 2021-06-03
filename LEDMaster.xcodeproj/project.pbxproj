@@ -7,12 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0305BA452651E4BD00B0A339 /* BluetoothController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0305BA442651E4BD00B0A339 /* BluetoothController.swift */; };
 		03160F3C26247547000F50ED /* LEDMasterApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03160F3B26247547000F50ED /* LEDMasterApp.swift */; };
 		03160F3E26247547000F50ED /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03160F3D26247547000F50ED /* ContentView.swift */; };
 		03160F4026247548000F50ED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 03160F3F26247548000F50ED /* Assets.xcassets */; };
 		03160F4326247548000F50ED /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 03160F4226247548000F50ED /* Preview Assets.xcassets */; };
 		03160F4E26247548000F50ED /* LEDMasterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03160F4D26247548000F50ED /* LEDMasterTests.swift */; };
 		03160F5926247548000F50ED /* LEDMasterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03160F5826247548000F50ED /* LEDMasterUITests.swift */; };
+		036D3A79265A56EE002CACE5 /* AnimationProgrammer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036D3A78265A56EE002CACE5 /* AnimationProgrammer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,6 +35,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0305BA442651E4BD00B0A339 /* BluetoothController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothController.swift; sourceTree = "<group>"; };
 		03160F3826247547000F50ED /* LEDMaster.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LEDMaster.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		03160F3B26247547000F50ED /* LEDMasterApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LEDMasterApp.swift; sourceTree = "<group>"; };
 		03160F3D26247547000F50ED /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -45,6 +48,7 @@
 		03160F5426247548000F50ED /* LEDMasterUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LEDMasterUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		03160F5826247548000F50ED /* LEDMasterUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LEDMasterUITests.swift; sourceTree = "<group>"; };
 		03160F5A26247548000F50ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		036D3A78265A56EE002CACE5 /* AnimationProgrammer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationProgrammer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +104,8 @@
 				03160F3F26247548000F50ED /* Assets.xcassets */,
 				03160F4426247548000F50ED /* Info.plist */,
 				03160F4126247548000F50ED /* Preview Content */,
+				0305BA442651E4BD00B0A339 /* BluetoothController.swift */,
+				036D3A78265A56EE002CACE5 /* AnimationProgrammer.swift */,
 			);
 			path = LEDMaster;
 			sourceTree = "<group>";
@@ -259,7 +265,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				036D3A79265A56EE002CACE5 /* AnimationProgrammer.swift in Sources */,
 				03160F3E26247547000F50ED /* ContentView.swift in Sources */,
+				0305BA452651E4BD00B0A339 /* BluetoothController.swift in Sources */,
 				03160F3C26247547000F50ED /* LEDMasterApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
