@@ -131,19 +131,14 @@ struct ContentView: View {
                         self.bledevice.sendText(text: "switch:0")
                     }.padding()
                 }
-            }.navigationTitle("Welcome").navigationBarTitleDisplayMode(.inline).navigationBarItems(leading:
+            }.navigationTitle("LED Master").navigationBarTitleDisplayMode(.inline).navigationBarItems(leading:
                 NavigationLink(destination: SecondView()) {
                         Image(systemName: "gearshape.2.fill").imageScale(.large)
                 },
                 trailing:
-                    Button(action: {
-                        print("Edit button pressed...")
-                        self.showing = true
-                    }) {
-                        Image(systemName: "speedometer").imageScale(.large)
-                    }.fullScreenCover(isPresented: $showing, content: {
-                        ProgrammerView()
-                    })
+                    NavigationLink(destination: ProgrammerView()) {
+                        Image(systemName: "chart.bar.xaxis").imageScale(.large)
+                    }
             )
         }
     }

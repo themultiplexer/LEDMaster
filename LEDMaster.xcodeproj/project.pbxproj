@@ -8,12 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		0305BA452651E4BD00B0A339 /* BluetoothController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0305BA442651E4BD00B0A339 /* BluetoothController.swift */; };
+		03096270266A1B2F009B4143 /* ScrollableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0309626F266A1B2F009B4143 /* ScrollableView.swift */; };
 		03160F3C26247547000F50ED /* LEDMasterApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03160F3B26247547000F50ED /* LEDMasterApp.swift */; };
 		03160F3E26247547000F50ED /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03160F3D26247547000F50ED /* ContentView.swift */; };
 		03160F4026247548000F50ED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 03160F3F26247548000F50ED /* Assets.xcassets */; };
 		03160F4326247548000F50ED /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 03160F4226247548000F50ED /* Preview Assets.xcassets */; };
 		03160F4E26247548000F50ED /* LEDMasterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03160F4D26247548000F50ED /* LEDMasterTests.swift */; };
 		03160F5926247548000F50ED /* LEDMasterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03160F5826247548000F50ED /* LEDMasterUITests.swift */; };
+		03181C9126698CAE00E8D056 /* MusicManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03181C9026698CAE00E8D056 /* MusicManager.swift */; };
 		036D3A79265A56EE002CACE5 /* AnimationProgrammer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036D3A78265A56EE002CACE5 /* AnimationProgrammer.swift */; };
 /* End PBXBuildFile section */
 
@@ -36,6 +38,7 @@
 
 /* Begin PBXFileReference section */
 		0305BA442651E4BD00B0A339 /* BluetoothController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothController.swift; sourceTree = "<group>"; };
+		0309626F266A1B2F009B4143 /* ScrollableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollableView.swift; sourceTree = "<group>"; };
 		03160F3826247547000F50ED /* LEDMaster.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LEDMaster.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		03160F3B26247547000F50ED /* LEDMasterApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LEDMasterApp.swift; sourceTree = "<group>"; };
 		03160F3D26247547000F50ED /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -48,7 +51,9 @@
 		03160F5426247548000F50ED /* LEDMasterUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LEDMasterUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		03160F5826247548000F50ED /* LEDMasterUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LEDMasterUITests.swift; sourceTree = "<group>"; };
 		03160F5A26247548000F50ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		03181C9026698CAE00E8D056 /* MusicManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicManager.swift; sourceTree = "<group>"; };
 		036D3A78265A56EE002CACE5 /* AnimationProgrammer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationProgrammer.swift; sourceTree = "<group>"; };
+		0379F5A92669709500682093 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +88,7 @@
 				03160F4C26247548000F50ED /* LEDMasterTests */,
 				03160F5726247548000F50ED /* LEDMasterUITests */,
 				03160F3926247547000F50ED /* Products */,
+				0379F5A82669709500682093 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -105,7 +111,9 @@
 				03160F4426247548000F50ED /* Info.plist */,
 				03160F4126247548000F50ED /* Preview Content */,
 				0305BA442651E4BD00B0A339 /* BluetoothController.swift */,
+				03181C9026698CAE00E8D056 /* MusicManager.swift */,
 				036D3A78265A56EE002CACE5 /* AnimationProgrammer.swift */,
+				0309626F266A1B2F009B4143 /* ScrollableView.swift */,
 			);
 			path = LEDMaster;
 			sourceTree = "<group>";
@@ -134,6 +142,14 @@
 				03160F5A26247548000F50ED /* Info.plist */,
 			);
 			path = LEDMasterUITests;
+			sourceTree = "<group>";
+		};
+		0379F5A82669709500682093 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0379F5A92669709500682093 /* MediaPlayer.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -266,9 +282,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				036D3A79265A56EE002CACE5 /* AnimationProgrammer.swift in Sources */,
+				03096270266A1B2F009B4143 /* ScrollableView.swift in Sources */,
 				03160F3E26247547000F50ED /* ContentView.swift in Sources */,
 				0305BA452651E4BD00B0A339 /* BluetoothController.swift in Sources */,
 				03160F3C26247547000F50ED /* LEDMasterApp.swift in Sources */,
+				03181C9126698CAE00E8D056 /* MusicManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

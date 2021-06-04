@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>To sync music patterns</string>
 	<key>NSBluetoothAlwaysUsageDescription</key>
 	<string>To find your LED Controller</string>
 	<key>CFBundleDevelopmentRegion</key>

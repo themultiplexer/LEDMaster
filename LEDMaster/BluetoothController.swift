@@ -99,7 +99,7 @@ class BluetoothController: NSObject, ObservableObject, CBCentralManagerDelegate,
     
     func peripheral(_ peripheral: CBPeripheral, didUpdateNotificationStateFor characteristic: CBCharacteristic, error: Error?) {
         if (error != nil) {
-            print("Error changing notification state: %@", error?.localizedDescription);
+            print("Error changing notification state: %@", error?.localizedDescription ?? "unknown error");
         }
 
         // Notification has started
