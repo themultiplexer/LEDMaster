@@ -10,36 +10,29 @@ import MediaPlayer
 struct Timeline :View {
     @Binding var state: [[Int]]
     @Binding var scrollTarget: Int
-    
+    @State private var contentOffset: CGPoint = .zero
+            
     var body: some View {
         ZStack {
-            ScrollView {
-            ScrollViewReader { proxy in
+            ScrollableView(self.$contentOffset, animationDuration: 5.0) {
                 LazyVStack(alignment: .center) {
-                ForEach(0...999, id: \.self) { count in
-                    HStack(){
-                        Text("\(count)")
-                        Spacer()
-                        LEDBlob(value: $state[count][0]).frame(width: 30, height: 30)
-                        LEDBlob(value: $state[count][1]).frame(width: 30, height: 30)
-                        LEDBlob(value: $state[count][2]).frame(width: 30, height: 30)
-                        LEDBlob(value: $state[count][3]).frame(width: 30, height: 30)
-                        LEDBlob(value: $state[count][4]).frame(width: 30, height: 30)
-                        LEDBlob(value: $state[count][5]).frame(width: 30, height: 30)
-                    }.padding(5).border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/).id(count)
-                }
-                }.padding(EdgeInsets(top: 300, leading: 0, bottom: 0, trailing: 0)).onChange(of: scrollTarget) { target in
-                    if target != 0 {
-                        withAnimation (.linear(duration: 1)) {
-                            proxy.scrollTo(target, anchor: .center)
-                        }
-                    }else{
-                        proxy.scrollTo(target, anchor: .center)
+                    ForEach(0...999, id: \.self) { count in
+                        HStack(){
+                            Text("\(count)")
+                            Spacer()
+                            LEDBlob(value: $state[count][0]).frame(width: 30, height: 30)
+                            LEDBlob(value: $state[count][1]).frame(width: 30, height: 30)
+                            LEDBlob(value: $state[count][2]).frame(width: 30, height: 30)
+                            LEDBlob(value: $state[count][3]).frame(width: 30, height: 30)
+                            LEDBlob(value: $state[count][4]).frame(width: 30, height: 30)
+                            LEDBlob(value: $state[count][5]).frame(width: 30, height: 30)
+                        }.padding(5).border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/).id(count)
                     }
+                    }.padding(EdgeInsets(top: 300, leading: 0, bottom: 0, trailing: 0)).onChange(of: scrollTarget) { target in
+                        self.contentOffset = CGPoint(x: 0, y: (target * 50))
                     }
                 }
-            }
-            Rectangle().frame(height:20)
+                Rectangle().frame(height:20)
         }
     }
 }
@@ -76,17 +69,11 @@ struct ProgrammerView: View {
             print(state)
         }).toolbar {
             ToolbarItemGroup(placement: .bottomBar) {
-                Button(action: {
-                    
-                }) { Text("---") }
+                Button(action: { }) { Text(musicPlayer.trackName) }
                 Spacer()
-                Button(action: {musicPlayer.play()}) {Image(systemName: "play.fill")}
+                Button(action: {musicPlayer.play() }) {Image(systemName: "play.fill") }
                 Spacer()
-                Button(action: {
-                    musicPlayer.pause()
-                }) {
-                    Image(systemName: "pause.fill")
-                }
+                Button(action: {musicPlayer.pause() }) { Image(systemName: "pause.fill") }
                 Spacer()
                 Button(action: {
                     musicPlayer.beginning()
