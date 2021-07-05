@@ -127,6 +127,15 @@ struct ContentView: View {
                     Button("LEDs ON") {
                         self.bledevice.sendText(text: "switch:1")
                     }.padding()
+                    Button("Switch") {
+                        self.bledevice.sendText(text: "coordinatormode:1")
+                    }.padding()
+                    Button("Start") {
+                        self.bledevice.sendText(text: "start:1")
+                    }.padding()
+                    Button("Stop") {
+                        self.bledevice.sendText(text: "start:0")
+                    }.padding()
                     Button("LEDs OFF") {
                         self.bledevice.sendText(text: "switch:0")
                     }.padding()
@@ -136,7 +145,7 @@ struct ContentView: View {
                         Image(systemName: "gearshape.2.fill").imageScale(.large)
                 },
                 trailing:
-                    NavigationLink(destination: ProgrammerView()) {
+                    NavigationLink(destination: ProgrammerView(bledevice:bledevice)) {
                         Image(systemName: "chart.bar.xaxis").imageScale(.large)
                     }
             )

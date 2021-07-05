@@ -60,8 +60,6 @@ class BluetoothController: NSObject, ObservableObject, CBCentralManagerDelegate,
         case .poweredOff:
             print("Bluetooth is switched off")
             self.currentState = "Bluetooth is off"
-        case .poweredOn:
-            print("Bluetooth is switched on")
         case .unsupported:
             print("Bluetooth is not supported")
         default:

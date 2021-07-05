@@ -9,14 +9,15 @@ import Foundation
 import MediaPlayer
 
 class MusicManager: NSObject, ObservableObject {
-  
+    var bpm: Int
+    var timestep: Int
     @Published var trackName: String
     @Published var time: Int
     let musicPlayer:MPMusicPlayerController
 
-    lazy var timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
+    lazy var timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { _ in
     
-        let newtime = Int(self.musicPlayer.currentPlaybackTime*4)
+        let newtime = Int(self.musicPlayer.currentPlaybackTime * ((Double(self.bpm) * Double(self.timestep)) / 60.0))
         if self.time != newtime {
             self.time = newtime
         }
@@ -24,8 +25,8 @@ class MusicManager: NSObject, ObservableObject {
     }
     
     @objc private func stateChanged() {
-        print("Changed")
         trackName = musicPlayer.nowPlayingItem?.title ?? "Unknown"
+        print(musicPlayer.nowPlayingItem?.beatsPerMinute ?? -1)
         if musicPlayer.playbackState == .playing {
             //self.time = 400
         }
@@ -53,11 +54,17 @@ class MusicManager: NSObject, ObservableObject {
         musicPlayer.skipToNextItem()
         self.time = 0
     }
+
+    func setBPM(bpm:Int) {
+        self.bpm = bpm
+    }
     
-    override init() {
+    init(bpm:Int, timestep:Int) {
         self.musicPlayer = MPMusicPlayerApplicationController.systemMusicPlayer
         self.trackName = "Unknown"
         self.time = 0
+        self.bpm = bpm
+        self.timestep = timestep
         super.init()
         musicPlayer.beginGeneratingPlaybackNotifications()
         NotificationCenter.default.addObserver(self, selector: #selector(self.stateChanged), name: NSNotification.Name.MPMusicPlayerControllerPlaybackStateDidChange, object: nil)
