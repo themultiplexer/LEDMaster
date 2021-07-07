@@ -64,14 +64,15 @@ struct LEDBlob: View {
 }
 
 struct ContentView: View {
-    @ObservedObject var bledevice = BluetoothController()
-    @State private var brightness: Double = 0
-    @State private var speed: Double = 0
+    @StateObject var bledevice = BluetoothController()
+    @ObservedObject var tapper = TapController()
+
+    @State private var isRed: Bool = false
     @State private var showing: Bool = false
     var effects = ["Hue", "Pump", "Pipe", "Pump Lit"]
-    @State private var selectedEffect = 0
-
-    @State private var bgColor = Color(.sRGB, red: 0.98, green: 0.9, blue: 0.2)
+    
+    var sliderHeight:CGFloat = 200.0
+    private var lasttime : Double = 0.0
     
     var body: some View {
         NavigationView{
@@ -84,60 +85,90 @@ struct ContentView: View {
                     Text("State:  \(bledevice.currentState)").padding()
                 }
                 HStack {
-                    Spacer()
-                    ColorPicker("Alignment Guides", selection: $bgColor).padding()
+                    Toggle(isOn: $bledevice.staticColor){}
+                    ColorPicker(selection: $bledevice.bgColor){
+                        Text("Color").frame(maxWidth: .infinity, alignment: .trailing)
+                    }.padding()
+                    Picker(selection: $bledevice.selectedEffect, label:Image(systemName: "wand.and.stars").font(.title)) {
+                        Text("Hue").tag(0)
+                        Text("Pump").tag(1)
+                        Text("Tube").tag(2)
+                        Text("Pump Limiter").tag(3)
+                        Text("Duck").tag(4)
+                    }.pickerStyle(MenuPickerStyle()).padding()
+                    HStack{
+                        Text("\(tapper.bpm) BPM")
+                        ZStack{
+                            Circle().fill(isRed ? Color.red : Color.black).frame(width:50, height:50).gesture(LongPressGesture().onChanged { _ in
+                                tapper.tap()
+                                self.isRed.toggle()
+                            })
+                            Text("Tap").foregroundColor(isRed ? Color.white : Color.white)
+                        }
+                    }
                     Spacer()
                 }
-                VStack{
-                    Slider(value: $brightness, in: 0...255, onEditingChanged: { changed in
-                        if(!changed){
-                            self.bledevice.sendText(text: "brightness:" + String(Int(brightness)))
-                        }
-                    }).padding()
-                    Slider(value: $speed, in: 0...255, onEditingChanged: { changed in
-                        if(!changed){
-                            self.bledevice.sendText(text: "speed:" + String(Int(speed)))
-                        }
-                    }).padding()
-                }.accentColor(.red).overlay(RoundedRectangle(cornerRadius: 15.0).stroke(lineWidth: 2.0).foregroundColor(.red)).padding()
+                Picker(selection: $bledevice.selectedCoordinator, label: Text("OK")){
+                    Text("Same").tag(0)
+                    Text("Rotate").tag(1)
+                    Text("Random").tag(2)
+                    Text("Bands").tag(3)
+                    Text("BPM").tag(4)
+                }.pickerStyle(SegmentedPickerStyle()).padding()
+                VStack {
+                    HStack{
+                        Image(systemName: "sun.min").resizable().scaledToFit().frame(width: 20.0, height: 20.0)
+                        Slider(value: $bledevice.brightness, in: 0...255, onEditingChanged: { changed in
+                            if(!changed){
+                                self.bledevice.sendText(text: "brightness:" + String(Int(bledevice.brightness)))
+                            }
+                        }).accentColor(.yellow)
+                        Image(systemName: "sun.max.fill").resizable().scaledToFit().frame(width: 20.0, height: 20.0)
+                    }.padding(.bottom, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
+                    HStack{
+                        Image(systemName: "tortoise.fill").resizable().scaledToFit().frame(width: 20.0, height: 20.0)
+                        Slider(value: $bledevice.speed, in: 0...255, onEditingChanged: { changed in
+                            if(!changed){
+                                self.bledevice.sendText(text: "speed:" + String(Int(bledevice.speed)))
+                                print("report:" + String(Int(bledevice.speed)))
+                            }
+                        })
+                        Image(systemName: "hare.fill").resizable().scaledToFit().frame(width: 20.0, height: 20.0)
+                    }.padding(.bottom, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
+                    HStack{
+                        Image(systemName: "dial.min").resizable().scaledToFit().frame(width: 20.0, height: 20.0)
+                        Slider(value: $bledevice.sensitivity, in: 0...255, onEditingChanged: { changed in
+                            if(!changed){
+                                self.bledevice.sendText(text: "sensitivity:" + String(Int(bledevice.sensitivity)))
+                            }
+                        }).accentColor(.red)
+                        Image(systemName: "dial.max.fill").resizable().scaledToFit().frame(width: 20.0, height: 20.0)
+                    }
+                }.padding()
                 HStack {
-                    ProgressBar(value: $bledevice.value[0], bledevice: self.bledevice, index:0).frame(width: 20)
-                    ProgressBar(value: $bledevice.value[1], bledevice: self.bledevice, index:1).frame(width: 20)
-                    ProgressBar(value: $bledevice.value[2], bledevice: self.bledevice, index:2).frame(width: 20)
-                    ProgressBar(value: $bledevice.value[3], bledevice: self.bledevice, index:3).frame(width: 20)
-                    ProgressBar(value: $bledevice.value[4], bledevice: self.bledevice, index:4).frame(width: 20)
-                    ProgressBar(value: $bledevice.value[5], bledevice: self.bledevice, index:5).frame(width: 20)
-                    ProgressBar(value: $bledevice.value[6], bledevice: self.bledevice, index:6).frame(width: 20)
-                }.foregroundColor(.blue).frame(height:150)
-                Picker("Please choose a color", selection: $selectedEffect) {
-                    Text("Hue").tag(0)
-                    Text("Pump").tag(1)
-                    Text("Tube").tag(2)
-                    Text("Pump Limiter").tag(3)
-                    /*
-                     ForEach((0...effects.count-1), id: \.self) {
-                     Text(effects[$0]).tag($0)
-                     }
-                     */
-                }.onChange(of: selectedEffect, perform : { (value) in
-                    self.bledevice.sendText(text: "mode:" + String(value))
-                    print("mode:" + String(value))
-                }).pickerStyle(MenuPickerStyle())
+                    ProgressBar(value: $bledevice.value[0], bledevice: self.bledevice, index:0).frame(width: 30)
+                    ProgressBar(value: $bledevice.value[1], bledevice: self.bledevice, index:1).frame(width: 30)
+                    ProgressBar(value: $bledevice.value[2], bledevice: self.bledevice, index:2).frame(width: 30)
+                    ProgressBar(value: $bledevice.value[3], bledevice: self.bledevice, index:3).frame(width: 30)
+                    ProgressBar(value: $bledevice.value[4], bledevice: self.bledevice, index:4).frame(width: 30)
+                    ProgressBar(value: $bledevice.value[5], bledevice: self.bledevice, index:5).frame(width: 30)
+                    ProgressBar(value: $bledevice.value[6], bledevice: self.bledevice, index:6).frame(width: 30)
+                }.foregroundColor(.blue).frame(height:sliderHeight)
+                Spacer()
                 HStack{
-                    Button("LEDs ON") {
-                        self.bledevice.sendText(text: "switch:1")
+                Spacer()
+                    Toggle(isOn: $bledevice.report){
+                        Text("Report Data").frame(maxWidth: .infinity, alignment: .trailing)
                     }.padding()
-                    Button("Switch") {
-                        self.bledevice.sendText(text: "coordinatormode:1")
-                    }.padding()
+                Spacer()
+                }
+                Spacer()
+                HStack{
                     Button("Start") {
                         self.bledevice.sendText(text: "start:1")
                     }.padding()
                     Button("Stop") {
                         self.bledevice.sendText(text: "start:0")
-                    }.padding()
-                    Button("LEDs OFF") {
-                        self.bledevice.sendText(text: "switch:0")
                     }.padding()
                 }
             }.navigationTitle("LED Master").navigationBarTitleDisplayMode(.inline).navigationBarItems(leading:

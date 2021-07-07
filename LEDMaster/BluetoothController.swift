@@ -6,12 +6,54 @@
 //
 
 import CoreBluetooth
-
+import SwiftUI
 
 class BluetoothController: NSObject, ObservableObject, CBCentralManagerDelegate, CBPeripheralDelegate {
   
+    @Published var bgColor = Color(.sRGB, red: 0.98, green: 0.9, blue: 0.2) {
+        didSet {
+            var hue : CGFloat = 0.0
+            var saturation : CGFloat = 0.0
+            var brightness : CGFloat = 0.0
+            var alpha : CGFloat = 0.0
+            UIColor(bgColor).getHue(&hue, saturation: &saturation, brightness: &brightness, alpha: &alpha)
+            self.sendText(text: "color:" + String(Int(hue*255.0)))
+            print("report:" + String(report ? 1 : 0))
+        }
+    }
     @Published var currentState: String
     @Published var value: [UInt8]
+    @Published var brightness: Double = 0
+    @Published var speed: Double = 0 {
+        didSet {
+            print(speed)
+        }
+    }
+    @Published var report: Bool = false {
+        didSet {
+            self.sendText(text: "report:" + String(report ? 1 : 0))
+            print("report:" + String(report ? 1 : 0))
+        }
+    }
+    @Published var staticColor: Bool = false {
+        didSet {
+            self.sendText(text: "static:" + String(staticColor ? 1 : 0))
+            print("static:" + String(staticColor ? 1 : 0))
+        }
+    }
+    @Published var sensitivity: Double = 0
+    @Published var selectedEffect = 0 {
+        didSet {
+            self.sendText(text: "mode:" + String(selectedEffect))
+            print("mode:" + String(selectedEffect))
+        }
+    }
+    @Published var selectedCoordinator = 0 {
+        didSet {
+            self.sendText(text: "coordinatormode:" + String(selectedCoordinator))
+            print("coordinator:" + String(selectedCoordinator))
+        }
+    }
     
     var myPeripheal:CBPeripheral?
     var myCharacteristic:CBCharacteristic?
@@ -64,6 +106,7 @@ class BluetoothController: NSObject, ObservableObject, CBCentralManagerDelegate,
             print("Bluetooth is not supported")
         default:
             print("Unknown state")
+            self.currentState = "Unknown"
         }
     }
     
@@ -81,6 +124,7 @@ class BluetoothController: NSObject, ObservableObject, CBCentralManagerDelegate,
         myCharacteristic = characteristics[0]
         myPeripheal?.delegate = self
         myPeripheal?.setNotifyValue(true, for: characteristics[0])
+        self.sendText(text: "request")
     }
     
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
@@ -88,6 +132,13 @@ class BluetoothController: NSObject, ObservableObject, CBCentralManagerDelegate,
         //print(received)
         if received.count == 7 {
             self.value = received
+        } else if received.count == 8 {
+            brightness = Double(received[0])
+            sensitivity = Double(received[1])
+            speed = Double(received[2])
+            selectedEffect = Int(received[3])
+            selectedCoordinator = Int(received[5])
+            report = received[6] != 0
         }
     }
     

@@ -16,6 +16,7 @@
 		03160F4E26247548000F50ED /* LEDMasterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03160F4D26247548000F50ED /* LEDMasterTests.swift */; };
 		03160F5926247548000F50ED /* LEDMasterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03160F5826247548000F50ED /* LEDMasterUITests.swift */; };
 		03181C9126698CAE00E8D056 /* MusicManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03181C9026698CAE00E8D056 /* MusicManager.swift */; };
+		031E9E3026949C480088518C /* TapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031E9E2F26949C480088518C /* TapController.swift */; };
 		036D3A79265A56EE002CACE5 /* AnimationProgrammer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036D3A78265A56EE002CACE5 /* AnimationProgrammer.swift */; };
 /* End PBXBuildFile section */
 
@@ -52,6 +53,7 @@
 		03160F5826247548000F50ED /* LEDMasterUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LEDMasterUITests.swift; sourceTree = "<group>"; };
 		03160F5A26247548000F50ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		03181C9026698CAE00E8D056 /* MusicManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicManager.swift; sourceTree = "<group>"; };
+		031E9E2F26949C480088518C /* TapController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapController.swift; sourceTree = "<group>"; };
 		036D3A78265A56EE002CACE5 /* AnimationProgrammer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationProgrammer.swift; sourceTree = "<group>"; };
 		0379F5A92669709500682093 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -114,6 +116,7 @@
 				03181C9026698CAE00E8D056 /* MusicManager.swift */,
 				036D3A78265A56EE002CACE5 /* AnimationProgrammer.swift */,
 				0309626F266A1B2F009B4143 /* ScrollableView.swift */,
+				031E9E2F26949C480088518C /* TapController.swift */,
 			);
 			path = LEDMaster;
 			sourceTree = "<group>";
@@ -287,6 +290,7 @@
 				0305BA452651E4BD00B0A339 /* BluetoothController.swift in Sources */,
 				03160F3C26247547000F50ED /* LEDMasterApp.swift in Sources */,
 				03181C9126698CAE00E8D056 /* MusicManager.swift in Sources */,
+				031E9E3026949C480088518C /* TapController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
