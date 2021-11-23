@@ -9,16 +9,16 @@ import CoreBluetooth
 import SwiftUI
 
 class BluetoothController: NSObject, ObservableObject, CBCentralManagerDelegate, CBPeripheralDelegate {
-  
-    @Published var bgColor = Color(.sRGB, red: 0.98, green: 0.9, blue: 0.2) {
+    @Published var firstcolor = Color(.sRGB, red: 0.98, green: 0.9, blue: 0.2) {
         didSet {
-            var hue : CGFloat = 0.0
-            var saturation : CGFloat = 0.0
-            var brightness : CGFloat = 0.0
-            var alpha : CGFloat = 0.0
-            UIColor(bgColor).getHue(&hue, saturation: &saturation, brightness: &brightness, alpha: &alpha)
-            self.sendText(text: "color:" + String(Int(hue*255.0)))
-            print("report:" + String(report ? 1 : 0))
+            let hue = rgbtohue(color: firstcolor)
+            self.sendText(text: "color1:" + String(Int(hue*255.0)))
+        }
+    }
+    @Published var secondcolor = Color(.sRGB, red: 0.98, green: 0.9, blue: 0.2) {
+        didSet {
+            let hue = rgbtohue(color: secondcolor)
+            self.sendText(text: "color2:" + String(Int(hue*255.0)))
         }
     }
     @Published var currentState: String
@@ -67,6 +67,15 @@ class BluetoothController: NSObject, ObservableObject, CBCentralManagerDelegate,
         self.value = [0,0,0,0,0,0,0]
         super.init()
         manager = CBCentralManager(delegate: self, queue: nil)
+    }
+    
+    func rgbtohue(color: Color) -> CGFloat {
+        var hue : CGFloat = 0.0
+        var saturation : CGFloat = 0.0
+        var brightness : CGFloat = 0.0
+        var alpha : CGFloat = 0.0
+        UIColor(color).getHue(&hue, saturation: &saturation, brightness: &brightness, alpha: &alpha)
+        return hue
     }
     
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {

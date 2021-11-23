@@ -82,20 +82,27 @@ struct ContentView: View {
                         print("Button tapped!")
                         self.bledevice.connect()
                     }.font(Font.system(size: 20.0).weight(.bold)).padding()
-                    Text("State:  \(bledevice.currentState)").padding()
-                }
+                    Text("State:  \(bledevice.currentState)")
+                }.padding(.top, 10)
                 HStack {
-                    Toggle(isOn: $bledevice.staticColor){}
-                    ColorPicker(selection: $bledevice.bgColor){
-                        Text("Color").frame(maxWidth: .infinity, alignment: .trailing)
-                    }.padding()
+                    Spacer()
+                    Toggle(isOn: $bledevice.staticColor){}.labelsHidden()
+                    Spacer()
+                    ColorPicker(selection: $bledevice.firstcolor){}.labelsHidden()
+                    ColorPicker(selection: $bledevice.secondcolor){}.labelsHidden()
+                    Spacer()
                     Picker(selection: $bledevice.selectedEffect, label:Image(systemName: "wand.and.stars").font(.title)) {
                         Text("Hue").tag(0)
                         Text("Pump").tag(1)
                         Text("Tube").tag(2)
                         Text("Pump Limiter").tag(3)
                         Text("Duck").tag(4)
-                    }.pickerStyle(MenuPickerStyle()).padding()
+                        Text("1").tag(5)
+                        Text("2").tag(6)
+                        Text("3").tag(7)
+                        Text("4").tag(8)
+                    }.pickerStyle(MenuPickerStyle())
+                    Spacer()
                     HStack{
                         Text("\(tapper.bpm) BPM")
                         ZStack{
@@ -105,7 +112,7 @@ struct ContentView: View {
                             })
                             Text("Tap").foregroundColor(isRed ? Color.white : Color.white)
                         }
-                    }
+                    }.padding()
                     Spacer()
                 }
                 Picker(selection: $bledevice.selectedCoordinator, label: Text("OK")){
